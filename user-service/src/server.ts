@@ -1,14 +1,14 @@
-import express from "express";
+import express from 'express';
 
-import config from "./config/config";
-import authRoutes from "./routes/authRoutes";
-import { connectDB } from "./database";
+import config from './config/config';
+import authRoutes from './routes/authRoutes';
+import { connectDB } from './database';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(authRoutes);
+app.use('/user/', authRoutes);
 
 connectDB();
 
