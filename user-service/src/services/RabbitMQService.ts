@@ -10,7 +10,9 @@ class RabbitMQService {
   private connection!: Connection;
   private channel!: Channel;
 
-  constructor() {}
+  constructor() {
+    this.init();
+  }
 
   async init() {
     this.connection = await amqp.connect(config.MESSAGE_BROKER_URL!);
@@ -31,6 +33,8 @@ class RabbitMQService {
         this.channel.sendToQueue(this.responseQueue, Buffer.from(JSON.stringify(userDetails)), {
           correlationId: msg.properties.correlationId,
         });
+
+        this.channel.ack(msg);
       }
     });
   }
